@@ -19,7 +19,7 @@ const AI = function (board) {
     //=====Self last move=====
     //Initialization
     t = board.slice();
-    for (let i = 0; i < l.length; i++) {
+    for (let i = 0; i < t.length; i++) {
         if (t[i] === 1) { t[i] = -1; }
         if (t[i] === 2) { t[i] = 1; }
     }
@@ -69,7 +69,7 @@ const AI = function (board) {
     //=====Block adversary last move=====
     //Initialization
     t = board.slice();
-    for (let i = 0; i < l.length; i++) {
+    for (let i = 0; i < t.length; i++) {
         if (t[i] === 2) { t[i] = -1; }
     }
     //Horizontal
@@ -166,7 +166,7 @@ const AI = function (board) {
     //Initialization
     t = board.slice();
     //1
-    if (ac(l, [2, 0, 0, 0, 1, 0, 0, 0, 1])) { return 2; }
+    if (ac(t, [2, 0, 0, 0, 1, 0, 0, 0, 1])) { return 2; }
     //=====Block adversary double last move=====
     //Initialization
     t = board.slice();
@@ -299,7 +299,7 @@ const AI = function (board) {
     //=====Self line=====
     //Initialization
     t = board.slice();
-    for (let i = 0; i < l.length; i++) {
+    for (let i = 0; i < t.length; i++) {
         if (t[i] === 1) { t[i] = -1; }
         if (t[i] === 2) { t[i] = 1; }
     }

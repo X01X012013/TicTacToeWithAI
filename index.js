@@ -1,8 +1,8 @@
 /**
- * The additional message to show if player wins. 
+ * The message to show if there is an error. 
  * @const {string}
  */
-const errMsg = "Please comment below with your moves order, I will fix this! ";
+const errMsg = "Please copy this and comment below, I will fix it: ";
 /**
  * The game board. 
  * Left up corner has index 0 and right bottom corner has index 8. 
@@ -10,132 +10,162 @@ const errMsg = "Please comment below with your moves order, I will fix this! ";
  * @var {Array.<number>}
  */
 let gameBoard = [0, 0, 0,
-                 0, 0, 0, 
+                 0, 0, 0,
                  0, 0, 0];
 /**
+ * The moves order log, displayed if the player wins. 
+ * The first letter indicates who starts first, then followed by numbers logging moves order. 
+ * @var {string}
+ */
+let playback = "";
+/**
  * The player's token. 
- * Can be "X" or "O", AI will be the other one. 
+ * Can be "X" or "O", player and AI must have different tokens. 
  * @var {string}
  */
 let playerToken = "X";
+/**
+ * Whether or not the game is still running. 
+ * @var {boolean}
+ */
+let isGameRunning = false;
 
-
-
-/*functions*/
-/*win check*/
-var winCheck = function(){
-  /*horizontal*/
-  winCheckSub([0, 1, 2]);
-  winCheckSub([3, 4, 5]);
-  winCheckSub([6, 7, 8]);
-  /*vertical*/
-  winCheckSub([0, 3, 6]);
-  winCheckSub([1, 4, 7]);
-  winCheckSub([2, 5, 8]);
-  /*diagonal*/
-  winCheckSub([0, 4, 8]);
-  winCheckSub([2, 4, 6]);
-  /*tie*/
-  if(!ended && function(){
-    for(var i = 0; i < table.length; i++){
-      if(table[i] === 0){
-        return false;
-      }
-    }
-    return true;
-  }() ){
-    /*log*/
-    console.log("Tie! ");
-    $("#status").html("Tie! ");
-    ended = true;
-  }
-  return null;
-};
-var winCheckSub = function(index){
-  var last = table[index[0]];
-  if(last === 0){
-    return false;
-  }
-  for(var i = 1; i < index.length; i++){
-    if(table[index[i]] !== last){
-      return false;
-    }
-    last = table[index[i]];
-  }
-  /*log*/
-  var winner = (table[index[0]] === 1)? "Player" : "AI";
-  var msg = (winner === "Player")? sendMsg : "";
-  console.log(winner + " wins! " + msg);
-  $("#status").html(winner + " wins! " + msg);
-  ended = true;
-  return true;
-};
-/*judge*/
-var move = function(index){
-  if(table[index - 1] === 0){
-    /*change table and draw table*/
-    table[index - 1] = (isPlayerTurn)? 1 : 2;
-    $("#c" + (index).toString()).html( function(){
-      var temp = (isPlayerTurn)? "X" : "O";
-      return ((temp === "O") !== (playerIsX))? "X" : "O"; /*exclusive nor*/
-    }() );
-    /*check winner*/
-    winCheck();
-    /*switch turn*/
-    isPlayerTurn = !isPlayerTurn;
-    return true;
-  }
-  /*cannot do this*/
-  return false;
-};
-/*reset*/
-var reset = function(pStart){
-  /*redraw html table*/
-  for(var i = 1; i < 10; i++){
-    $("#c" + (i).toString()).html("");
-  }
-  /*reset vars*/
-  isPlayerTurn = pStart;
-  playerIsX = $("#cbPIsX").prop("checked");
-  ended = false;
-  table = [0, 0, 0, 
-           0, 0, 0, 
-           0, 0, 0];
-  /*ai*/
-  if(!pStart){
-    move(ai() + 1);
-  }
-  /*ready*/
-  $("#status").html("Ready");
-  isReady = true;
-  return null;
-};
-/*main*/
-window.onload = function(){
-  /*status*/
-  $("#status").html("Ready");
-  /*main*/
-  $(".cell").click( function(){
-    if(!ended && isReady){
-      isReady = false;
-      if(move($(this).attr("id").substring(1, 2)) && !ended){
-        if(!move(ai() + 1)){
-          ended = true;
-          $("#status").html("AI error! " + sendMsg);
-          throw("AI error! " + sendMsg);
+/**
+ * Check if the place is empty then place the token, log in {@link playback}, and update the screen. 
+ * This function will not check if the game is still running. 
+ * @function
+ * @param {number} place - The index of the place to place the token. 
+ * @param {number} token - The token state, see {@link gameBoard} for more information. 
+ * @return {boolean} True if the token is successfully placed, false otherwise. 
+ */
+const placeToken = function (place, token) {
+    if (gameBoard[place] === 0) {
+        //Update game board and playback
+        gameBoard[place] = token;
+        playback += place.toString();
+        //Update screen
+        if (gameBoard[place] === 1) {
+            $("#" + place.toString()).html(playerToken).css("color", "darkgreen");
+        } else if (gameBoard[place] === 2) {
+            $("#" + place.toString()).html(((playerToken === "X") ? "O" : "X")).css("color", "darkred");
         }
-      }
-      isReady = true;
+        return true;
+    } else {
+        return false;
     }
-    return null;
-  });
-  /*reset*/
-  $("#bPStart").click( function(){
-    reset(true);
-    return null;
-  });
-  $("#bAIStart").click( function(){
-    reset(false);
-    return null;
-  });
-return null;}
+};
+/**
+ * Check if there is a winner or it is tied, then set {@isGameRunning} to false and update the screen. 
+ * This function will not check if the game is still running. 
+ * @function
+ */
+const winCheck = function () {
+    //Internal function, set isGameRunning to false then update state message
+    const showEndMsg = function (winner) {
+        //Set flag
+        isGameRunning = false;
+        //Show message
+        if (winner === 0) {
+            $("#state").html("Tie! ");
+        } else if (winner === 1) {
+            $("#state").html("Player wins! " + errMsg + playback);
+        } else if (winner === 2) {
+            $("#state").html("AI wins! ");
+        }
+    };
+    //Internal function, check if the value in game board at 3 places are the same and not 0, and end the game if they are
+    const check = function (a, b, c) {
+        if (gameBoard[a] !== 0 && gameBoard[a] === gameBoard[b] && gameBoard[b] === gameBoard[c]) {
+            showEndMsg(gameBoard[a]);
+            //Update color
+            const color = ((gameBoard[a] === 1) ? "greed" : "red");
+            for (let i = 0; i < arguments.length; i++) {
+                $("#" + arguments[i].toString()).css("color", color);
+            }
+        }
+    };
+    //Horizontal
+    check(0, 1, 2);
+    check(3, 4, 5);
+    check(6, 7, 8);
+    //Vertiacal
+    check(0, 3, 6);
+    check(1, 4, 7);
+    check(2, 5, 8);
+    //Diagonal
+    check(0, 4, 8);
+    check(2, 4, 6);
+    //Tie
+    if (!gameBoard.includes(0)) {
+        showEndMsg(0);
+    }
+};
+/**
+ * Reset the game and let AI move once if AI starts. 
+ * @function
+ * @param {boolean} AIStarts - Whether or not AI starts. 
+ */
+const start = function (AIStarts) {
+    //Reset variables
+    gameBoard = [0, 0, 0,
+                 0, 0, 0,
+                 0, 0, 0];
+    isGameRunning = true;
+    playback = (AIStarts ? "a" : "p");
+    //Reset screen
+    $("#state").html("Your turn! ");
+    $("th").html("");
+    //Check if AI starts first
+    if (AIStarts) {
+        placeToken(AI(gameBoard), 2);
+        //We do not need a win check here since only one move was done
+    }
+};
+/**
+ * When the document is ready, set up event handlers, then start the first game where player starts. 
+ * @function
+ * @listens $(document).ready
+ */
+$(document).ready(function () {
+    //=====Set up event handlers=====
+    //Start buttons
+    $("#playerStarts").click(start.bind(undefined, false));
+    $("#AIStarts").click(start.bind(undefined, true));
+    //Toggle token button
+    $(".toggleToken").click(function () {
+        //Update variable
+        playerToken = ((playerToken === "X") ? "O" : "X");
+        //Update screen
+        $("th, .toggleToken").each(function () {
+            if ($(this).html() === "X") {
+                $(this).html("O");
+            } else if ($(this).html() === "O") {
+                $(this).html("X");
+            }
+        });
+    });
+    //Game board
+    $("th").click(function () {
+        //See if we can place the token
+        if (isGameRunning && placeToken($(this).attr("id"), 1)) {
+            winCheck();
+            //See if the game is still running
+            if (isGameRunning) {
+                //AI's turn
+                if (!placeToken(AI(gameBoard), 2)) {
+                    //Failed to place AI's token
+                    isGameRunning = false;
+                    $("#state").html("AI error! " + errMsg + playback);
+                } else {
+                    //AI worked fine
+                    winCheck();
+                }
+            }
+        }
+    });
+    //=====Other=====
+    //Load Disqus
+    disqusLoader("tictactoewithai", "http://x01x012013.github.io/TicTacToeWithAI/", "main", "Tic Tac Toe With AI");
+    //Start the first game
+    start(false);
+});
