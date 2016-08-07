@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--<meta name="description" content="" />-->
+    <meta name="author" content="X01X012013" />
+    <!--<link rel="icon" href="" />-->
+    <title>Tic Tac Toe With AI</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <style>
+        /* Minimum screen width limit. */
+        .jumbotron {
+            min-width: 630px;
+        }
+        /* Apply game board style to table cells. */
+        th {
+            width: 170px;
+            height: 170px;
+            background-color: white;
+            border: 2px solid black;
+        }
+    </style>
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/color/jquery.color.plus-names-2.1.2.min.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://x01x012013.github.io/Global/disqusLoader.js" charset="utf-8"></script>
+    <script src="ai.js" charset="utf-8"></script>
+    <script src="index.js" charset="utf-8"></script>
+</head>
+<body>
+    <div style="height:20px;"></div>
+    <!-- No Script -->
+    <noscript>
+        <div class="jumbotron">
+            <div class="container">
+                <h2 style="color:red;">JavaScript Disabled!</h2>
+                <p style="color:red;">You MUST have JavaScript enabled to play this game! </p>
+            </div>
+        </div>
+    </noscript>
+    <!-- Tic Tac Toe With AI -->
+    <div class="jumbotron">
+        <div class="container">
+            <h2>Tic Tac Toe With AI</h2>
+            <div style="text-align:center;">
+                <!-- Controls -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success" style="width:40px;">X</button>
+                    <button type="button" class="btn btn-primary" style="width:200px;">Reset and player starts</button>
+                    <button type="button" class="btn btn-primary" style="width:200px;">Reset and AI starts</button>
+                    <button type="button" class="btn btn-danger" style="width:40px;">O</button>
+                </div>
+                <!-- State -->
+                <p style="color:red; margin-top:15px;"><strong id="state">Loading...</strong></p>
+                <!-- Game Board -->
+                <table style="margin:0 auto;">
+                    <tr>
+                        <th class="cell" data-id="0"></th>
+                        <th class="cell" data-id="1"></th>
+                        <th class="cell" data-id="2"></th>
+                    </tr>
+                    <tr>
+                        <th class="cell" data-id="3"></th>
+                        <th class="cell" data-id="4"></th>
+                        <th class="cell" data-id="5"></th>
+                    </tr>
+                    <tr>
+                        <th class="cell" data-id="6"></th>
+                        <th class="cell" data-id="7"></th>
+                        <th class="cell" data-id="8"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--TODO: Disqus, how to contact me / report issue-->
+    <!-- Source Code -->
+    <div class="jumbotron">
+        <div class="container">
+            <h2>Source Code</h2>
+            <p><a href="https://github.com/X01X012013/TicTacToeWithAI" target="_blank">View on GitHub</a></p>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="container theme-showcase">
+        <a style="color:gray; font-size:12px;" href="https://X01X012013.github.io/Global/license.html" target="_blank">Tic Tac Toe With AI by X01X012013 - Click to view license</a>
+    </div>
+</body>
+</html>
