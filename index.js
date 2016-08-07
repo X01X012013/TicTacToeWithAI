@@ -78,7 +78,7 @@ const winCheck = function () {
         if (gameBoard[a] !== 0 && gameBoard[a] === gameBoard[b] && gameBoard[b] === gameBoard[c]) {
             showEndMsg(gameBoard[a]);
             //Update color
-            const color = ((gameBoard[a] === 1) ? "greed" : "red");
+            const color = ((gameBoard[a] === 1) ? "green" : "red");
             for (let i = 0; i < arguments.length; i++) {
                 $("#" + arguments[i].toString()).css("color", color);
             }
