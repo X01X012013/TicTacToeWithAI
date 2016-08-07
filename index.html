@@ -11,16 +11,22 @@
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
     <style>
-        /* Minimum screen width limit. */
+        /* Minimum screen width. */
         .jumbotron {
             min-width: 630px;
         }
-        /* Apply game board style to table cells. */
+        /* 
+            Game board styles. 
+            There is only one game board and there will not be more, so it does not have an ID or class. 
+        */
         th {
             width: 170px;
             height: 170px;
             background-color: white;
             border: 2px solid black;
+            text-align: center;
+            font-size: 100px;
+            font-weight: bold;
         }
     </style>
     <!-- JS -->
@@ -49,36 +55,43 @@
             <div style="text-align:center;">
                 <!-- Controls -->
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success" style="width:40px;">X</button>
-                    <button type="button" class="btn btn-primary" style="width:200px;">Reset and player starts</button>
-                    <button type="button" class="btn btn-primary" style="width:200px;">Reset and AI starts</button>
-                    <button type="button" class="btn btn-danger" style="width:40px;">O</button>
+                    <button type="button" class="btn btn-success toggleToken" style="width:40px;">X</button>
+                    <button type="button" class="btn btn-primary" id="playerStart" style="width:200px;">Reset and player starts</button>
+                    <button type="button" class="btn btn-primary" id="AIStart" style="width:200px;">Reset and AI starts</button>
+                    <button type="button" class="btn btn-danger toggleToken" style="width:40px;">O</button>
                 </div>
                 <!-- State -->
                 <p style="color:red; margin-top:15px;"><strong id="state">Loading...</strong></p>
                 <!-- Game Board -->
                 <table style="margin:0 auto;">
                     <tr>
-                        <th class="cell" data-id="0"></th>
-                        <th class="cell" data-id="1"></th>
-                        <th class="cell" data-id="2"></th>
+                        <th data-id="0"></th>
+                        <th data-id="1"></th>
+                        <th data-id="2"></th>
                     </tr>
                     <tr>
-                        <th class="cell" data-id="3"></th>
-                        <th class="cell" data-id="4"></th>
-                        <th class="cell" data-id="5"></th>
+                        <th data-id="3"></th>
+                        <th data-id="4"></th>
+                        <th data-id="5"></th>
                     </tr>
                     <tr>
-                        <th class="cell" data-id="6"></th>
-                        <th class="cell" data-id="7"></th>
-                        <th class="cell" data-id="8"></th>
+                        <th data-id="6"></th>
+                        <th data-id="7"></th>
+                        <th data-id="8"></th>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-
-    <!--TODO: Disqus, how to contact me / report issue-->
+    <!-- Chat Board -->
+    <div class="jumbotron">
+        <div class="container">
+            <h2>Chat Board</h2>
+            <p>Chat respectfully; comments with link(s) will be held for my approval. </p>
+            <p>Please comment below if you have a bug, a typo, or a suggestion to report. </p>
+            <div id="disqus_thread"></div>
+        </div>
+    </div>
     <!-- Source Code -->
     <div class="jumbotron">
         <div class="container">

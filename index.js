@@ -1,16 +1,26 @@
-var isPlayerTurn = true;
-var playerIsX = true;
-var isReady = true;
-var ended = false;
-var table = [0, 0, 0, 
-             0, 0, 0, 
-             0, 0, 0];
-/*0: empty, 1: Player, 2: AI*/
-/*index: 
-0, 1, 2, 
-3, 4, 5, 
-6, 7, 8*/
-var sendMsg = "Please send your moves to me, I will fix this. ";
+/**
+ * The additional message to show if player wins. 
+ * @const {string}
+ */
+const errMsg = "Please comment below with your moves order, I will fix this! ";
+/**
+ * The game board. 
+ * Left up corner has index 0 and right bottom corner has index 8. 
+ * Each element can be 0 for empty, 1 for player token placed, or 2 for AI token placed. 
+ * @var {Array.<number>}
+ */
+let gameBoard = [0, 0, 0,
+                 0, 0, 0, 
+                 0, 0, 0];
+/**
+ * The player's token. 
+ * Can be "X" or "O", AI will be the other one. 
+ * @var {string}
+ */
+let playerToken = "X";
+
+
+
 /*functions*/
 /*win check*/
 var winCheck = function(){
