@@ -167,9 +167,9 @@ $(document).ready(function () {
                 }
             }
         });
+        //Start the first game
+        start(false);
     }
     //Load Disqus
     disqusLoader("tictactoewithai", "http://x01x012013.github.io/TicTacToeWithAI/", "main", "Tic Tac Toe With AI");
-    //Start the first game
-    start(false);
 });
