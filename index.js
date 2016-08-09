@@ -127,43 +127,47 @@ const start = function (AIStarts) {
  * @listens $(document).ready
  */
 $(document).ready(function () {
-    //=====Set up event handlers=====
-    //Start buttons
-    $("#playerStarts").click(start.bind(undefined, false));
-    $("#AIStarts").click(start.bind(undefined, true));
-    //Toggle token button
-    $(".toggleToken").click(function () {
-        //Update variable
-        playerToken = ((playerToken === "X") ? "O" : "X");
-        //Update screen
-        $("th, .toggleToken").each(function () {
-            if ($(this).html() === "X") {
-                $(this).html("O");
-            } else if ($(this).html() === "O") {
-                $(this).html("X");
-            }
+    //Check if the browser is supported
+    if (typeof Array.prototype.includes === "undefined") {
+        $("#state").html("Sorry, your browser is not supported. ");
+    } else {
+        //=====Set up event handlers=====
+        //Start buttons
+        $("#playerStarts").click(start.bind(undefined, false));
+        $("#AIStarts").click(start.bind(undefined, true));
+        //Toggle token button
+        $(".toggleToken").click(function () {
+            //Update variable
+            playerToken = ((playerToken === "X") ? "O" : "X");
+            //Update screen
+            $("th, .toggleToken").each(function () {
+                if ($(this).html() === "X") {
+                    $(this).html("O");
+                } else if ($(this).html() === "O") {
+                    $(this).html("X");
+                }
+            });
         });
-    });
-    //Game board
-    $("th").click(function () {
-        //See if we can place the token
-        if (isGameRunning && placeToken($(this).attr("id"), 1)) {
-            winCheck();
-            //See if the game is still running
-            if (isGameRunning) {
-                //AI's turn
-                if (!placeToken(AI(gameBoard), 2)) {
-                    //Failed to place AI's token
-                    isGameRunning = false;
-                    $("#state").html("AI error! " + errMsg + playback);
-                } else {
-                    //AI worked fine
-                    winCheck();
+        //Game board
+        $("th").click(function () {
+            //See if we can place the token
+            if (isGameRunning && placeToken($(this).attr("id"), 1)) {
+                winCheck();
+                //See if the game is still running
+                if (isGameRunning) {
+                    //AI's turn
+                    if (!placeToken(AI(gameBoard), 2)) {
+                        //Failed to place AI's token
+                        isGameRunning = false;
+                        $("#state").html("AI error! " + errMsg + playback);
+                    } else {
+                        //AI worked fine
+                        winCheck();
+                    }
                 }
             }
-        }
-    });
-    //=====Other=====
+        });
+    }
     //Load Disqus
     disqusLoader("tictactoewithai", "http://x01x012013.github.io/TicTacToeWithAI/", "main", "Tic Tac Toe With AI");
     //Start the first game
