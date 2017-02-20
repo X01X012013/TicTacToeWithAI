@@ -1,8 +1,8 @@
 /**
- * Artificial intelligence for Tic Tac Toe. 
+ * Artificial intelligence for Tic Tac Toe.
  * @function
- * @param {Array.<number>} board - {@link gameBoard}, can be passed in by reference, it will not be edited inside this function. 
- * @return {number} The AI's move. 
+ * @param {Array.<number>} board - {@link gameBoard}, can be passed in by reference, it will not be edited inside this function.
+ * @return {number} The AI's move.
  */
 const AI = function (board) {
     //Internal function, array compare, assumes inputs have same length
