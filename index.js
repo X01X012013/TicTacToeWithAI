@@ -1,42 +1,42 @@
 /**
- * The message to show if there is an error. 
+ * The message to show if there is an error.
  * @const {string}
  */
 const errMsg = "Please copy this and comment below, I will fix it: ";
 /**
  * The game board. 
- * Left up corner has index 0 and right bottom corner has index 8. 
- * Each element can be 0 for empty, 1 for player token placed, or 2 for AI token placed. 
+ * Left up corner has index 0 and right bottom corner has index 8.
+ * Each element can be 0 for empty, 1 for player token placed, or 2 for AI token placed.
  * @var {Array.<number>}
  */
 let gameBoard = [0, 0, 0,
                  0, 0, 0,
                  0, 0, 0];
 /**
- * The moves order log, displayed if the player wins. 
- * The first letter indicates who starts first, then followed by numbers logging moves order. 
+ * The moves order log, displayed if the player wins.
+ * The first letter indicates who starts first, then followed by numbers logging moves order.
  * @var {string}
  */
 let playback = "";
 /**
- * The player's token. 
- * Can be "X" or "O", player and AI must have different tokens. 
+ * The player's token.
+ * Can be "X" or "O", player and AI must have different tokens.
  * @var {string}
  */
 let playerToken = "X";
 /**
- * Whether or not the game is still running. 
+ * Whether or not the game is still running.
  * @var {boolean}
  */
 let isGameRunning = false;
 
 /**
- * Check if the place is empty then place the token, log in {@link playback}, and update the screen. 
- * This function will not check if the game is still running. 
+ * Check if the place is empty then place the token, log in {@link playback}, and update the screen.
+ * This function will not check if the game is still running.
  * @function
- * @param {number} place - The index of the place to place the token. 
- * @param {number} token - The token state, see {@link gameBoard} for more information. 
- * @return {boolean} True if the token is successfully placed, false otherwise. 
+ * @param {number} place - The index of the place to place the token.
+ * @param {number} token - The token state, see {@link gameBoard} for more information.
+ * @return {boolean} True if the token is successfully placed, false otherwise.
  */
 const placeToken = function (place, token) {
     if (gameBoard[place] === 0) {
@@ -55,8 +55,8 @@ const placeToken = function (place, token) {
     }
 };
 /**
- * Check if there is a winner or it is tied, then set {@isGameRunning} to false and update the screen. 
- * This function will not check if the game is still running. 
+ * Check if there is a winner or it is tied, then set {@isGameRunning} to false and update the screen.
+ * This function will not check if the game is still running.
  * @function
  */
 const winCheck = function () {
@@ -122,7 +122,7 @@ const start = function (AIStarts) {
     }
 };
 /**
- * When the document is ready, set up event handlers, then start the first game where player starts. 
+ * When the document is ready, set up event handlers, then start the first game where player starts.
  * @function
  * @listens $(document).ready
  */
