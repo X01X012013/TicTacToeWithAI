@@ -1,10 +1,11 @@
 /**
- * Artificial intelligence for Tic Tac Toe.
+ * Algorithm for Tic Tac Toe.
+ * It takes in the game board and retuns the best place to put its symbol, it is currently unbeatable.
  * @function
- * @param {Array.<number>} board - {@link gameBoard}, can be passed in by reference, it will not be edited inside this function.
- * @return {number} The AI's move.
+ * @param {Array.<number>} board - The game board, it can be passed in by reference.
+ * @return {number} The best move.
  */
-const AI = function (board) {
+const algorithm = function (board) {
     //Internal function, array compare, assumes inputs have same length
     const ac = function (a, b) {
         for (let i = 0; i < a.length; i++) {
@@ -14,7 +15,7 @@ const AI = function (board) {
         }
         return true;
     };
-    //A temporary copy of original game board to manipulate
+    //A temporary copy of original game board for manipulation
     let t;
     //=====Self last move=====
     //Initialization
@@ -162,7 +163,7 @@ const AI = function (board) {
         if (t[2] === t[6] && t[6] === t[8] && t[8] === 0) { return 6; }
         if (t[1] === t[3] && t[3] === t[4] && t[4] === 0) { return 4; }
     }
-    //=====Special moves=====
+    //=====Special cases=====
     //Initialization
     t = board.slice();
     //1
@@ -346,7 +347,7 @@ const AI = function (board) {
         if (t[4] === 0) { return 4; }
         if (t[6] === 0) { return 6; }
     }
-    //=====Suggested moves=====
+    //=====Generic moves=====
     //Initialization
     t = board.slice();
     //Take centre first
