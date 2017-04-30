@@ -4,9 +4,9 @@
  */
 const errMsg = "Please copy this and comment below, I will fix it: ";
 /**
- * The game board. 
+ * The game board.
  * Left up corner has index 0 and right bottom corner has index 8.
- * Each element can be 0 for empty, 1 for player token placed, or 2 for AI token placed.
+ * Each element can be 0 for empty, 1 for player token placed, or 2 for computer token placed.
  * @var {Array.<number>}
  */
 let gameBoard = [0, 0, 0,
@@ -20,7 +20,7 @@ let gameBoard = [0, 0, 0,
 let playback = "";
 /**
  * The player's token.
- * Can be "X" or "O", player and AI must have different tokens.
+ * Can be "X" or "O", player and computer must have different tokens.
  * @var {string}
  */
 let playerToken = "X";
@@ -70,7 +70,7 @@ const winCheck = function () {
         } else if (winner === 1) {
             $("#state").html("Player wins! " + errMsg + playback);
         } else if (winner === 2) {
-            $("#state").html("AI wins! ");
+            $("#state").html("Computer wins! ");
         }
     };
     //Internal function, check if the value in game board at 3 places are the same and not 0, and end the game if they are
@@ -101,23 +101,23 @@ const winCheck = function () {
     }
 };
 /**
- * Reset the game and let AI move once if AI starts. 
+ * Reset the game and let computer move once if computer starts.
  * @function
- * @param {boolean} AIStarts - Whether or not AI starts. 
+ * @param {boolean} computerStarts - Whether or not computer starts.
  */
-const start = function (AIStarts) {
+const start = function (computerStarts) {
     //Reset variables
     gameBoard = [0, 0, 0,
                  0, 0, 0,
                  0, 0, 0];
     isGameRunning = true;
-    playback = (AIStarts ? "a" : "p");
+    playback = (computerStarts ? "a" : "p");
     //Reset screen
     $("#state").html("Your turn! ");
     $("th").html("");
-    //Check if AI starts first
-    if (AIStarts) {
-        placeToken(AI(gameBoard), 2);
+    //Check if computer starts first
+    if (computerStarts) {
+        placeToken(algorithm(gameBoard), 2);
         //We do not need a win check here since only one move was done
     }
 };
@@ -134,7 +134,7 @@ $(document).ready(function () {
         //=====Set up event handlers=====
         //Start buttons
         $("#playerStarts").click(start.bind(undefined, false));
-        $("#AIStarts").click(start.bind(undefined, true));
+        $("#computerStarts").click(start.bind(undefined, true));
         //Toggle token button
         $(".toggleToken").click(function () {
             //Update variable
@@ -155,13 +155,12 @@ $(document).ready(function () {
                 winCheck();
                 //See if the game is still running
                 if (isGameRunning) {
-                    //AI's turn
-                    if (!placeToken(AI(gameBoard), 2)) {
-                        //Failed to place AI's token
+                    //Computer's turn
+                    if (!placeToken(algorithm(gameBoard), 2)) {
+                        //Failed to place conputer's token
                         isGameRunning = false;
-                        $("#state").html("AI error! " + errMsg + playback);
+                        $("#state").html("Algorithm error! " + errMsg + playback);
                     } else {
-                        //AI worked fine
                         winCheck();
                     }
                 }
@@ -171,5 +170,5 @@ $(document).ready(function () {
         start(false);
     }
     //Load Disqus
-    disqusLoader("tictactoewithai", "http://x01x012013.github.io/TicTacToeWithAI/", "main", "Tic Tac Toe With AI");
+    disqusLoader("tictactoe", "http://jspenguin2017.github.io/TicTacToe/", "main", "Tic Tac Toe");
 });
