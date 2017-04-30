@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- This is a non-responsive web page. -->
+    <!-- This web page is non-responsive -->
     <!--<meta name="viewport" content="width=device-width, initial-scale=1" />-->
     <!--<meta name="description" content="" />-->
-    <meta name="author" content="X01X012013" />
+    <meta name="author" content="jspenguin2017" />
     <!--<link rel="icon" href="" />-->
     <title>Tic Tac Toe With AI</title>
     <!-- CSS -->
@@ -29,22 +29,13 @@
             font-size: 100px;
             font-weight: bold;
         }
-        /* Make game board not selectable */
-        table {
-            user-select: none;
-            -ms-user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -webkit-touch-callout: none;
-            -webkit-user-drag: none;
-        }
     </style>
     <!-- JS -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" charset="utf-8" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/color/jquery.color.plus-names-2.1.2.min.js" charset="utf-8" integrity="sha256-Wp3wC/dKYQ/dCOUD7VUXXp4neLI5t0uUEF1pg0dFnAE=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://x01x012013.github.io/Global/disqusLoader.js" charset="utf-8"></script>
-    <script src="ai.js" charset="utf-8"></script>
+    <script src="https://x01x012013.github.io/Libraries/disqusLoader.js" charset="utf-8"></script>
+    <script src="algorithm.js" charset="utf-8"></script>
     <script src="index.js" charset="utf-8"></script>
 </head>
 <body>
@@ -73,7 +64,7 @@
                 <!-- State -->
                 <p style="color:red; margin-top:15px;"><strong id="state">Loading...</strong></p>
                 <!-- Game Board -->
-                <table style="margin:0 auto;">
+                <table style="margin:0 auto; user-select:none;">
                     <tr>
                         <th id="0"></th>
                         <th id="1"></th>
@@ -111,7 +102,7 @@
     </div>
     <!-- Footer -->
     <div class="container theme-showcase">
-        <p style="color:gray; font-size:12px;">Tic Tac Toe With AI by X01X012013</p>
+        <p style="color:gray; font-size:12px;">Tic Tac Toe With AI by jspenguin2017</p>
     </div>
 </body>
 </html>
