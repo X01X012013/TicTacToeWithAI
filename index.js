@@ -170,5 +170,5 @@ $(document).ready(function () {
         start(false);
     }
     //Load Disqus
-    disqusLoader("tictactoe", "http://jspenguin2017.github.io/TicTacToe/", "main", "Tic Tac Toe");
+    disqusLoader("tictactoe-2", "http://jspenguin2017.github.io/TicTacToe/", "main", "Tic Tac Toe");
 });
