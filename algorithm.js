@@ -1,6 +1,6 @@
 /**
  * Algorithm for Tic Tac Toe.
- * It takes in the game board and retuns the best place to put its symbol, it is currently unbeatable.
+ * It is currently unbeatable.
  * @function
  * @param {Array.<number>} board - The game board, it can be passed in by reference.
  * @return {number} The best move.
