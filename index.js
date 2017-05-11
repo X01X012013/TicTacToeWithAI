@@ -173,6 +173,6 @@ $(document).ready(function () {
         //Start the first game
         start(false);
     }
-    //Load Disqus
+    //Load Disqus chat board
     disqusLoader("tictactoe-2", "http://jspenguin2017.github.io/TicTacToe/", "main", "Tic Tac Toe");
 });
