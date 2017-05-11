@@ -6,7 +6,7 @@
  * @return {number} The best move.
  */
 const algorithm = function (board) {
-    //Internal function, compares two arrays, assumes inputs have same length
+    //Internal function, compares two arrays, assumes that arguments have the same length
     const ac = function (a, b) {
         for (let i = 0; i < a.length; i++) {
             if (a[i] !== b[i]) {
