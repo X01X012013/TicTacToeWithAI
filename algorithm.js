@@ -2,11 +2,11 @@
  * Algorithm for Tic Tac Toe.
  * It is currently unbeatable.
  * @function
- * @param {Array.<number>} board - The game board, it can be passed in by reference.
+ * @param {Array.<number>} board - The game board, it can be passed in by reference, this function will not change it.
  * @return {number} The best move.
  */
 const algorithm = function (board) {
-    //Internal function, array compare, assumes inputs have same length
+    //Internal function, compares two arrays, assumes inputs have same length
     const ac = function (a, b) {
         for (let i = 0; i < a.length; i++) {
             if (a[i] !== b[i]) {
