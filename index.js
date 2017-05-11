@@ -13,8 +13,9 @@ let gameBoard = [0, 0, 0,
                  0, 0, 0,
                  0, 0, 0];
 /**
- * The moves order log, displayed if the player wins.
+ * The moves log, displayed if the player wins.
  * The first letter indicates who starts first, then followed by numbers logging moves order.
+ * The moves order will be index of the gameBoard.
  * @var {string}
  */
 let playback = "";
@@ -31,11 +32,11 @@ let playerToken = "X";
 let isGameRunning = false;
 
 /**
- * Check if the place is empty then place the token, log in {@link playback}, and update the screen.
+ * Check if the place is empty then place the token, log the move in playback, and update the screen.
  * This function will not check if the game is still running.
  * @function
  * @param {number} place - The index of the place to place the token.
- * @param {number} token - The token state, see {@link gameBoard} for more information.
+ * @param {number} token - The token state, see gameBoard for more information.
  * @return {boolean} True if the token is successfully placed, false otherwise.
  */
 const placeToken = function (place, token) {
