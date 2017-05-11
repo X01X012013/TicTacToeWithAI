@@ -2,7 +2,7 @@
  * Algorithm for Tic Tac Toe.
  * It is currently unbeatable.
  * @function
- * @param {Array.<number>} board - The game board, it can be passed in by reference, this function will not change it.
+ * @param {Array.<number>} board - gameBoard, it can be passed in by reference, this function will not change it.
  * @return {number} The best move.
  */
 const algorithm = function (board) {
