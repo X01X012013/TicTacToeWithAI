@@ -1,5 +1,5 @@
 /**
- * The message to show if there is an error.
+ * The message to show when there is an error.
  * @const {string}
  */
 const errMsg = "Please copy this and comment below, I will fix it: ";
@@ -14,8 +14,8 @@ let gameBoard = [0, 0, 0,
                  0, 0, 0];
 /**
  * The moves log, displayed if the player wins.
- * The first letter indicates who starts first, then followed by numbers logging moves order.
- * The moves order will be index of the gameBoard.
+ * The first letter indicates who starts first, c for computer and p for player.
+ * The rest of the characters will be moves order log, they will be logged as indexes of gameBoard.
  * @var {string}
  */
 let playback = "";
@@ -32,7 +32,7 @@ let playerToken = "X";
 let isGameRunning = false;
 
 /**
- * Check if the place is empty then place the token, log the move in playback, and update the screen.
+ * Check if the place is empty then place the token, log the move in playback, then update the screen.
  * This function will not check if the game is still running.
  * @function
  * @param {number} place - The index of the place to place the token.
@@ -56,16 +56,16 @@ const placeToken = function (place, token) {
     }
 };
 /**
- * Check if there is a winner or it is tied, then set {@isGameRunning} to false and update the screen.
+ * Check if there is a winner or it is tied, then set isGameRunning to false, and finally, update the screen.
  * This function will not check if the game is still running.
  * @function
  */
 const winCheck = function () {
     //Internal function, set isGameRunning to false then update state message
     const showEndMsg = function (winner) {
-        //Set flag
+        //Set isGameRunning
         isGameRunning = false;
-        //Show message
+        //Show state message
         if (winner === 0) {
             $("#state").html("Tie! ");
         } else if (winner === 1) {
@@ -74,11 +74,12 @@ const winCheck = function () {
             $("#state").html("Computer wins! ");
         }
     };
-    //Internal function, check if the value in game board at 3 places are the same and not 0, and end the game if they are
+    //Internal function, check if the value in gameBoard at 3 places (should be a line) are same and not 0
+    //Then end the game if they are the same
     const check = function (a, b, c) {
         if (gameBoard[a] !== 0 && gameBoard[a] === gameBoard[b] && gameBoard[b] === gameBoard[c]) {
             showEndMsg(gameBoard[a]);
-            //Update color
+            //Update color to highlight the 3 tokens that are lined up
             const color = ((gameBoard[a] === 1) ? "green" : "red");
             for (let i = 0; i < arguments.length; i++) {
                 $("#" + arguments[i].toString()).css("color", color);
@@ -112,7 +113,7 @@ const start = function (computerStarts) {
                  0, 0, 0,
                  0, 0, 0];
     isGameRunning = true;
-    playback = (computerStarts ? "a" : "p");
+    playback = (computerStarts ? "c" : "p");
     //Reset screen
     $("#state").html("Your turn! ");
     $("th").html("");
@@ -153,6 +154,7 @@ $(document).ready(function () {
         $("th").click(function () {
             //See if we can place the token
             if (isGameRunning && placeToken($(this).attr("id"), 1)) {
+                //Check if game ended
                 winCheck();
                 //See if the game is still running
                 if (isGameRunning) {
@@ -162,6 +164,7 @@ $(document).ready(function () {
                         isGameRunning = false;
                         $("#state").html("Algorithm error! " + errMsg + playback);
                     } else {
+                        //Check if game ended again (this needs to be done after each move)
                         winCheck();
                     }
                 }
