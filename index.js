@@ -67,11 +67,11 @@ const winCheck = function () {
         isGameRunning = false;
         //Show state message
         if (winner === 0) {
-            $("#state").html("Tie! ");
+            $("#state").text("Tie! ");
         } else if (winner === 1) {
-            $("#state").html("Player wins! " + errMsg + playback);
+            $("#state").text("Player wins! " + errMsg + playback);
         } else if (winner === 2) {
-            $("#state").html("Computer wins! ");
+            $("#state").text("Computer wins! ");
         }
     };
     //Internal function, check if the value in gameBoard at 3 places (should be a line) are same and not 0
