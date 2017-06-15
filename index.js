@@ -46,9 +46,9 @@ const placeToken = function (place, token) {
         playback += place.toString();
         //Update screen
         if (gameBoard[place] === 1) {
-            $("#" + place.toString()).html(playerToken).css("color", "darkgreen");
+            $("#" + place.toString()).text(playerToken).css("color", "darkgreen");
         } else if (gameBoard[place] === 2) {
-            $("#" + place.toString()).html(((playerToken === "X") ? "O" : "X")).css("color", "darkred");
+            $("#" + place.toString()).text(((playerToken === "X") ? "O" : "X")).css("color", "darkred");
         }
         return true;
     } else {
@@ -115,8 +115,8 @@ const start = function (computerStarts) {
     isGameRunning = true;
     playback = (computerStarts ? "c" : "p");
     //Reset screen
-    $("#state").html("Your turn! ");
-    $("th").html("");
+    $("#state").text("Your turn! ");
+    $("th").text("");
     //Check if computer starts first
     if (computerStarts) {
         placeToken(algorithm(gameBoard), 2);
@@ -131,7 +131,7 @@ const start = function (computerStarts) {
 $(document).ready(function () {
     //Check if the browser is supported
     if (typeof Array.prototype.includes === "undefined") {
-        $("#state").html("Sorry, your browser is not supported. ");
+        $("#state").text("Sorry, your browser is not supported. ");
     } else {
         //=====Set up event handlers=====
         //Start buttons
@@ -143,10 +143,10 @@ $(document).ready(function () {
             playerToken = ((playerToken === "X") ? "O" : "X");
             //Update screen
             $("th, .toggleToken").each(function () {
-                if ($(this).html() === "X") {
-                    $(this).html("O");
-                } else if ($(this).html() === "O") {
-                    $(this).html("X");
+                if ($(this).text() === "X") {
+                    $(this).text("O");
+                } else if ($(this).text() === "O") {
+                    $(this).text("X");
                 }
             });
         });
@@ -162,7 +162,7 @@ $(document).ready(function () {
                     if (!placeToken(algorithm(gameBoard), 2)) {
                         //Failed to place conputer's token
                         isGameRunning = false;
-                        $("#state").html("Algorithm error! " + errMsg + playback);
+                        $("#state").text("Algorithm error! " + errMsg + playback);
                     } else {
                         //Check if game ended again (this needs to be done after each move)
                         winCheck();
